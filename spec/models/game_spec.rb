@@ -6,13 +6,7 @@ RSpec.describe Game, type: :model do
 
     context "with valid params" do
       let(:params) do
-        {
-          title: "Game of Thrones",
-          players_attributes: [
-            { name: "John Snow" },
-            { name: "Sansa Stark" }
-          ]
-        }
+        attributes_for(:game).merge(players_attributes: [attributes_for(:player)])
       end
 
       it "creates new game" do

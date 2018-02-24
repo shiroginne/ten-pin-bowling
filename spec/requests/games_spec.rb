@@ -3,13 +3,7 @@ require 'rails_helper'
 RSpec.describe "Games", type: :request do
   describe "GET /games/1" do
     let(:params) do
-      {
-        title: "Game of Thrones",
-        players_attributes: [
-          { name: "John Snow" },
-          { name: "Sansa Stark" }
-        ]
-      }
+      attributes_for(:game).merge(players_attributes: [attributes_for(:player)])
     end
     let(:game) { Game.create(params) }
 

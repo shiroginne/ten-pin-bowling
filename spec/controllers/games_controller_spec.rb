@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
   let(:valid_attributes) do
-    {
-      title: "Game of Throne",
-      players_attributes: [
-        { name: "John Snow" },
-        { name: "Sansa Stark" }
-      ]
-    }
+    attributes_for(:game).merge(players_attributes: [attributes_for(:player)])
   end
   let(:invalid_attributes) { { title: "GO" } }
 

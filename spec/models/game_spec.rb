@@ -5,7 +5,15 @@ RSpec.describe Game, type: :model do
     subject(:game) { Game.create(params) }
 
     context "with valid params" do
-      let(:params) { { title: "GOT" } }
+      let(:params) do
+        {
+          title: "Game of Thrones",
+          players_attributes: [
+            { name: "John Snow" },
+            { name: "Sansa Stark" }
+          ]
+        }
+      end
 
       it "creates new game" do
         expect(game.valid?).to be(true)

@@ -27,6 +27,6 @@ class GamesController < ApplicationController
     end
 
     def game_params
-      params.fetch(:game).permit(:title)
+      params.fetch(:game).permit(:title, players_attributes: [:name])
     end
 end

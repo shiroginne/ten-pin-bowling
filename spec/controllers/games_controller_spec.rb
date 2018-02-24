@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
-  let(:valid_attributes) { { title: "Game of Throne" } }
+  let(:valid_attributes) do
+    {
+      title: "Game of Throne",
+      players_attributes: [
+        { name: "John Snow" },
+        { name: "Sansa Stark" }
+      ]
+    }
+  end
   let(:invalid_attributes) { { title: "GO" } }
 
   describe "GET #show" do
@@ -10,7 +18,7 @@ RSpec.describe GamesController, type: :controller do
     it "returns a success response" do
       get :show, params: { id: game.to_param, format: :json }
 
-      expect(response).to be_success
+      expect(response.successful?).to eq(true)
     end
   end
 

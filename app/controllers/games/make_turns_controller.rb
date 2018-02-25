@@ -6,7 +6,7 @@ class Games::MakeTurnsController < ApplicationController
     if @turn_maker.make_turn(params[:pins_count])
       render "games/frames/show", status: :created, location: game_frame_url(@game, @frame)
     else
-      render json: @turn_maker.errors, status: :unprocessable_entity
+      render_json_error(@turn_maker.errors)
     end
   end
 

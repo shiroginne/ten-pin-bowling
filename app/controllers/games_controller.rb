@@ -9,7 +9,7 @@ class GamesController < ApplicationController
     if @game.save
       render :show, status: :created, location: @game
     else
-      render json: @game.errors, status: :unprocessable_entity
+      render_json_error(@game.errors)
     end
   end
 
@@ -17,7 +17,7 @@ class GamesController < ApplicationController
     if @game.update(game_params)
       render :show, status: :ok, location: @game
     else
-      render json: @game.errors, status: :unprocessable_entity
+      render_json_error(@game.errors)
     end
   end
 

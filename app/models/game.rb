@@ -13,6 +13,10 @@ class Game < ApplicationRecord
 
   after_create :setup_game
 
+  def next_frame
+    frames.open.first
+  end
+
   private
     def setup_game
       players.each { |p| frames.create(player: p) }

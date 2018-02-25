@@ -1,5 +1,8 @@
 en:
   unsupported_format: Unsupported Media Type
+  shared:
+    404:
+      game_not_found_details: Game not found. Check request parameters and try again later
   activemodel:
     errors:
       models:

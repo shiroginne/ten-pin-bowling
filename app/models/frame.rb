@@ -8,6 +8,7 @@ class Frame < ApplicationRecord
   has_many :turns, dependent: :destroy
 
   before_create :validate_maximum_frames
+  after_update :create_next_frame, if: -> { closed? && !last? }
 
   def pins_count
     turns.sum(:pins_count)
@@ -23,5 +24,9 @@ class Frame < ApplicationRecord
         errors.add(:base, :too_much_frames)
         throw(:abort)
       end
+    end
+
+    def create_next_frame
+      game.frames.create(player: player)
     end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Games::TurnsController, type: :controller do
+RSpec.describe Games::MakeTurnsController, type: :controller do
   describe "POST #create" do
     let(:game) { create(:game_with_players) }
     let(:player) { game.players.first }

@@ -1,4 +1,4 @@
-class Games::TurnsController < ApplicationController
+class Games::MakeTurnsController < ApplicationController
   before_action :load_game, :load_frame, :load_player
 
   def create

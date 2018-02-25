@@ -35,6 +35,7 @@ RSpec.describe "Games", type: :request do
 
       expect(turn_data["game_id"]).to eq(game.id)
       expect(turn_data["player_id"]).to eq(player.id)
+      expect(turn_data["state"]).to eq("open")
       expect(turn_data["turns"].first["pins_count"]).to eq(8)
     end
   end

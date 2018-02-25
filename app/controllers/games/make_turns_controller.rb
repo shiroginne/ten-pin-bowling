@@ -2,11 +2,11 @@ class Games::MakeTurnsController < ApplicationController
   before_action :load_game, :load_frame, :load_player
 
   def create
-    build_turn
-    if @turn_maker.save
+    build_turn_maker
+    if @turn_maker.make_turn(params[:pins_count])
       render "games/frames/show", status: :created, location: game_frame_url(@game, @frame)
     else
-      render json: @turn.errors, status: :unprocessable_entity
+      render json: @turn_maker.errors, status: :unprocessable_entity
     end
   end
 
@@ -23,8 +23,8 @@ class Games::MakeTurnsController < ApplicationController
       @player = @game.players.find(params[:player_id])
     end
 
-    def build_turn
-      @turn_maker = TurnMaker.new(@frame, pins_count: params[:pins_count])
+    def build_turn_maker
+      @turn_maker = TurnMaker.new(@frame)
     end
 
     def turn_params

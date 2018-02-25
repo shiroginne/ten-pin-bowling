@@ -72,3 +72,4 @@ for example:
 
 - [ ] make more friendly error messages
 - [ ] apply [JSON API](https://jsonapi.org/)
+- [ ] use [swagger](https://github.com/richhollis/swagger-docs) for documentation

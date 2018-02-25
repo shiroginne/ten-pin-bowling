@@ -1,2 +1,11 @@
 en:
   unsupported_format: Unsupported Media Type
+  activemodel:
+    errors:
+      models:
+        turn_maker:
+          attributes:
+            base:
+              game_is_closed: Game is closed
+              frame_is_closed: Frame is closed
+              too_much_pins: Too much pins

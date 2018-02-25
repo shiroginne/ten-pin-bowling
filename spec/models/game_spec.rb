@@ -13,6 +13,12 @@ RSpec.describe Game, type: :model do
         expect(game.valid?).to be(true)
         expect(game.persisted?).to be(true)
       end
+
+      it "validates frames count for game" do
+        expect {
+          10.times { game.frames.create!(player: game.players.first) }
+        }.to raise_error(ActiveRecord::RecordNotSaved)
+      end
     end
 
     context "with invalid params" do
@@ -23,6 +29,12 @@ RSpec.describe Game, type: :model do
         expect(game.errors.messages[:title])
           .to eq(["is too short (minimum is 3 characters)"])
       end
+    end
+  end
+
+  describe "#state" do
+    it "open by default" do
+      expect(Game.new.state).to eq("open")
     end
   end
 end

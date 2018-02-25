@@ -1,9 +1,7 @@
 class TurnMaker
   include ActiveModel::Validations
 
-  attr_reader :frame, :pins_count
-
-  validate :validate_frame_closed, :validate_pins_count
+  validate :is_game_closed, :is_frame_closed, :is_pins_count
 
   def initialize(frame)
     @frame = frame
@@ -14,19 +12,22 @@ class TurnMaker
     @pins_count = turn.pins_count
 
     if valid? && turn.valid?
-      turn.save && close_frame(frame)
+      turn.save && close_frame(frame) && close_game(frame)
     end
   end
 
   private
-    def validate_frame_closed
-      if frame.closed?
-        errors.add(:base, :frame_is_closed)
-        throw(:abort)
-      end
+    attr_reader :frame, :pins_count
+
+    def is_game_closed
+      errors.add(:base, :game_is_closed) && throw(:abort) if frame.game.closed?
     end
 
-    def validate_pins_count
+    def is_frame_closed
+      errors.add(:base, :frame_is_closed) && throw(:abort) if frame.closed?
+    end
+
+    def is_pins_count
       if Integer(pins_count) + frame.pins_count > Frame::MAXIMUM_PINS
         errors.add(:base, :too_much_pins)
         throw(:abort)
@@ -36,6 +37,14 @@ class TurnMaker
     def close_frame(frame)
       if is_strike?(frame) || is_spare?(frame) || is_out_of_turns?(frame)
         frame.close!
+      else
+        true
+      end
+    end
+
+    def close_game(frame)
+      if frame.last? && frame.closed?
+        frame.game.close!
       else
         true
       end

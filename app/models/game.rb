@@ -1,4 +1,8 @@
 class Game < ApplicationRecord
+  include Closable
+
+  TOTAL_FRAMES = 10
+
   has_many :players
   has_many :frames, dependent: :destroy
 

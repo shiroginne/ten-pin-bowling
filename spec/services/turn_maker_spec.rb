@@ -54,7 +54,38 @@ RSpec.describe TurnMaker do
         maker.make_turn(5)
 
         expect(maker.invalid?).to eq(true)
-        expect(maker.errors.count).to eq(1)
+        expect(maker.errors[:base]).to eq(["Frame is closed"])
+      end
+    end
+
+    context "last frame" do
+      before { allow(frame).to receive(:last?).and_return(true) }
+
+      it "returns error on 4th turn" do
+        2.times { maker.make_turn(3) }
+        expect(frame.state).to eq("open")
+        expect(maker.valid?).to eq(true)
+
+        maker.make_turn(3)
+        expect(frame.state).to eq("closed")
+        expect(maker.valid?).to eq(false)
+      end
+
+      it "closes the game" do
+        3.times { maker.make_turn(2) }
+
+        expect(frame.game.state).to eq("closed")
+      end
+    end
+
+    context "game is closed" do
+      let(:game) { frame.game }
+      before { game.update_attribute(:state, :closed) }
+
+      it "returns error" do
+        maker.make_turn(2)
+
+        expect(maker.errors[:base]).to eq(["Game is closed"])
       end
     end
   end

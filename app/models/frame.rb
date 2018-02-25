@@ -1,21 +1,27 @@
 class Frame < ApplicationRecord
+  include Closable
+
   MAXIMUM_PINS = 10
 
   belongs_to :game, inverse_of: :frames
   belongs_to :player
   has_many :turns, dependent: :destroy
 
-  enum state: [:open, :closed]
+  before_create :validate_maximum_frames
 
   def pins_count
     turns.sum(:pins_count)
   end
 
   def last?
-    game.frames.count == 10
+    game.frames.count == Game::TOTAL_FRAMES
   end
 
-  def close!
-    update_attribute(:state, :closed)
-  end
+  private
+    def validate_maximum_frames
+      if game.frames.count >= Game::TOTAL_FRAMES
+        errors.add(:base, :too_much_frames)
+        throw(:abort)
+      end
+    end
 end

@@ -61,14 +61,13 @@ RSpec.describe TurnMaker do
     context "last frame" do
       before { allow(frame).to receive(:last?).and_return(true) }
 
-      it "returns error on 4th turn" do
-        2.times { maker.make_turn(3) }
+      it "gives 3th turn in split" do
+        2.times { maker.make_turn(5) }
         expect(frame.state).to eq("open")
         expect(maker.valid?).to eq(true)
 
         maker.make_turn(3)
         expect(frame.state).to eq("closed")
-        expect(maker.valid?).to eq(false)
       end
 
       it "closes the game" do

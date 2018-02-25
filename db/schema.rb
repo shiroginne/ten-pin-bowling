@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_25_130427) do
+ActiveRecord::Schema.define(version: 2018_02_25_151343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_02_25_130427) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "state", default: 0
+    t.integer "score", default: 0
     t.index ["game_id"], name: "index_frames_on_game_id"
     t.index ["player_id"], name: "index_frames_on_player_id"
   end
@@ -30,7 +31,6 @@ ActiveRecord::Schema.define(version: 2018_02_25_130427) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "state", default: 0
-  end
   end
 
   create_table "players", force: :cascade do |t|

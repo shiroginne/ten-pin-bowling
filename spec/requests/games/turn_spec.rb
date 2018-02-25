@@ -20,6 +20,7 @@ RSpec.describe "Turns", type: :request do
 
       expect(turn_data["game_id"]).to eq(game.id)
       expect(turn_data["player_id"]).to eq(player.id)
+      expect(turn_data["score"]).to eq(8)
       expect(turn_data["state"]).to eq("open")
       expect(turn_data["turns"].first["pins_count"]).to eq(8)
     end
@@ -31,6 +32,7 @@ RSpec.describe "Turns", type: :request do
         turn_data = JSON.parse(response.body)
 
         expect(turn_data["game_id"]).to eq(game.id)
+        expect(turn_data["score"]).to eq(10)
         expect(turn_data["next"]["url"]).to eq(game_frame_url(game, game.next_frame, format: :json))
       end
     end
@@ -46,5 +48,4 @@ RSpec.describe "Turns", type: :request do
       end
     end
   end
-
 end

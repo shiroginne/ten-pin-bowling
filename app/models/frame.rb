@@ -5,10 +5,13 @@ class Frame < ApplicationRecord
   TURNS_PER_FRAME = 2
 
   belongs_to :game, inverse_of: :frames
-  belongs_to :player
+  belongs_to :player, default: -> { Current.player }
   has_many :turns, dependent: :destroy
 
   before_create :validate_maximum_frames
+
+  scope :current, -> { where.not(player_id: nil).open.first }
+  scope :next, -> { open.first }
 
   def pins_count
     turns.sum(:pins_count)

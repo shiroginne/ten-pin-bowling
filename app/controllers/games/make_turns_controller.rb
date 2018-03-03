@@ -20,7 +20,7 @@ class Games::MakeTurnsController < ApplicationController
     end
 
     def load_player
-      @player = @game.players.find(params[:player_id])
+      Current.player = @game.players.find(params[:player_id])
     end
 
     def build_turn_maker

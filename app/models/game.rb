@@ -5,6 +5,7 @@ class Game < ApplicationRecord
 
   has_many :players
   has_many :frames, dependent: :destroy
+  has_many :turns, through: :frames
 
   accepts_nested_attributes_for :players
 
@@ -14,7 +15,7 @@ class Game < ApplicationRecord
   after_create :setup_game
 
   def next_frame
-    frames.open.first
+    frames.next
   end
 
   private

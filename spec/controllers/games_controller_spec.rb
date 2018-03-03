@@ -28,7 +28,7 @@ RSpec.describe GamesController, type: :controller do
         post :create, params: { game: valid_attributes, format: :json}
 
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq("application/json")
         expect(response.location).to eq(game_url(Game.last))
       end
     end
@@ -38,7 +38,7 @@ RSpec.describe GamesController, type: :controller do
         post :create, params: { game: invalid_attributes, format: :json }
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq("application/json")
       end
     end
   end
@@ -60,7 +60,7 @@ RSpec.describe GamesController, type: :controller do
         put :update, params: { id: game.to_param, game: valid_attributes, format: :json }
 
         expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq("application/json")
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe GamesController, type: :controller do
         put :update, params: { id: game.to_param, game: invalid_attributes, format: :json }
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq("application/json")
       end
     end
   end
